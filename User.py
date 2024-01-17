@@ -83,6 +83,24 @@ class UserMetro(AdminMetro):
         except (WeakPasswordError, InvalidUsernameError, ValueError) as e:
             self.logger.error(f"Error adding user - {e}")
 
+    def check_credentials_User(self, username, password):
+        """Check if the provided credentials are correct."""
+        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+        user_data = self.UserUsernamePassword.get(username)
+
+        if user_data and user_data["password"] == hashed_password:
+            self.logger.info("Credentials are correct.")
+            print("Credentials are correct.")
+            return True
+        else:
+            self.logger.warning("Credentials are incorrect.")
+            print("Credentials are incorrect.")
+            return False
+
+    def __str__(self):
+        self.logger.info(f"Information: {self.UserUsernamePassword}")
+        return f"information :{self.UserUsernamePassword}"
+
 
 class User(UserMetro):
     pass
