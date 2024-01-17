@@ -4,46 +4,54 @@ These exceptions provide a way to handle specific error cases more gracefully an
 """
 
 
-class DuplicateUsernameError(Exception):
+class MainException(Exception):
+    pass
+
+
+class DuplicateUsernameError(MainException):
     """Exception raised when an attempt is made to create a user or admin with a duplicate username."""
     pass
 
 
-class DuplicatePasswordError(Exception):
+class DuplicatePasswordError(MainException):
     """Exception raised when an attempt is made to create a user or admin with a duplicate password."""
     pass
 
 
-class WeakPasswordError(Exception):
+class WeakPasswordError(MainException):
     """Exception raised when a password fails to meet the specified strength criteria during validation."""
     pass
 
 
-class InvalidUsernameError(Exception):
+class InvalidUsernameError(MainException):
     """Exception raised when a username does not meet the specified format during validation."""
     pass
 
 
-class InvalidPhoneError(Exception):
+class InvalidPhoneError(MainException):
     """Exception raised when a phone number does not meet the specified format during validation."""
     pass
 
 
-class InvalidNationalCodeError(Exception):
+class InvalidNationalCodeError(MainException):
     """Exception raised when a national code does not meet the specified format or length during validation."""
     pass
 
 
-class InvalidAgeError(Exception):
+class InvalidAgeError(MainException):
     """Exception raised when an age is not within the specified range during validation."""
     pass
 
 
-class AddressValidationError(Exception):
+class AddressValidationError(MainException):
     """Custom exception for address validation errors."""
     pass
 
 
 class NameValidationError(Exception):
     """Custom exception for name and lastname validation errors."""
+    pass
+
+
+class InsufficientFundsError(Exception):
     pass
