@@ -6,8 +6,8 @@ names, and lastnames, as well as adding user information and checking credential
 import hashlib
 import re
 import uuid
-from exeptions import *
-from log_decorator import *
+from Exceptions import *
+from Logger import *
 
 
 class AdminMetro(Logger):
@@ -17,6 +17,7 @@ class AdminMetro(Logger):
     password_regex = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%#*?&]{8,}$"
     user_regex = r"^[a-zA-Z0-9._]+@[a-z.]+\.[a-z]{2,}$"
     mobile_regex = r"09(1[0-9]|3[0-9]|2[0-9]|0[1-9]|9[0-9])[0-9]{7}$"
+    nationalcode = r"^\d{2}[0-9]{8}$"
 
     def __init__(self):
         super().__init__()
@@ -43,17 +44,12 @@ class AdminMetro(Logger):
 
     def validate_national_code(self, national_code):
         """Validate the format of the given national code."""
-        try:
-            national_code = int(national_code)
-        except ValueError:
-            raise InvalidNationalCodeError("Invalid national code. It must be an integer.")
-
-        if national_code <= 0000000000 or national_code >= 00000000000:
-            raise InvalidNationalCodeError("Invalid national code. It must be 10 characters long.")
+        if not re.match(self.nationalcode, national_code):
+            raise InvalidNationalCodeError("The number must be 10 digits")
 
     def validate_name_lastname(self, name, lastname):
         """Validate the length and alphabetic nature of the given name and lastname."""
-        if len(name) < 4 or len(lastname) < 4:
+        if len(name) <= 3 or len(lastname) <= 3:
             raise NameValidationError("Name and Lastname must be at least 4 characters long.")
 
         if not name.isalpha() and not lastname.isalpha():
@@ -136,7 +132,7 @@ class AdminMetro(Logger):
             elif len(self.AdminUsernamePassword) < 1:
                 UUID = uuid.uuid4()
                 self.AdminUsernamePassword[username] = {"username": username, "password": hashed_password, "ID": UUID}
-                self.logger.info(f"Added successfully - Username: {username}, Password: {hashed_password}, ID: {UUID}")
+                # self.logger.info(f"Added successfully - Username: {username}, Password: {hashed_password}, ID: {UUID}")
             else:
                 self.logger.info("User already exists.")
         except (WeakPasswordError, InvalidUsernameError, ValueError) as e:
@@ -150,9 +146,11 @@ class AdminMetro(Logger):
         if user_data and user_data["password"] == hashed_password:
             self.logger.info("Credentials are correct.")
             print("Credentials are correct.")
+            return True
         else:
             self.logger.warning("Credentials are incorrect.")
             print("Credentials are incorrect.")
+            return False
 
     def __str__(self):
         self.logger.info(f"Information: {self.AdminUsernamePassword}")
@@ -161,3 +159,9 @@ class AdminMetro(Logger):
 
 class Admin(AdminMetro):
     pass
+
+
+# add admin
+input_admin = Admin()
+input_admin.add_password_username("Pedram.9060@gmail.com", "Pedram$9060")
+
