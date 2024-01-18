@@ -48,10 +48,10 @@ class AddressValidationError(MainException):
     pass
 
 
-class NameValidationError(Exception):
+class NameValidationError(MainException):
     """Custom exception for name and lastname validation errors."""
     pass
 
 
-class InsufficientFundsError(Exception):
+class InsufficientFundsError(MainException):
     pass
