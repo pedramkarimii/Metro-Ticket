@@ -1,10 +1,10 @@
 """This module defines the UserMetro class for managing user information in a metro system.
 It inherits functionality from the AdminMetro class and includes methods for adding user
 information ,passwords and usernames."""
-from admin import *
+from admin_metro import *
 
 
-class UserMetro(AdminMetro):
+class UserMetroAdmin(MetroAdmin):
     """Class representing user information management in a metro system."""
     UserUsernamePassword = {}
     UserInfo = {}
@@ -102,5 +102,5 @@ class UserMetro(AdminMetro):
         return f"information :{self.UserUsernamePassword}"
 
 
-class User(UserMetro):
+class UserMetro(UserMetroAdmin):
     pass
