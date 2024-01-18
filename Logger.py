@@ -12,7 +12,7 @@ class Logger:
     def __init__(self):
         """Initialize the Logger instance."""
         # Configure logging
-        self.logger = logging.getLogger("admin_metro")
+        self.logger = logging.getLogger("Logger")
         self.logger.setLevel(logging.INFO)
 
         # Create file handler and set formatter
