@@ -55,3 +55,7 @@ class NameValidationError(MainException):
 
 class InsufficientFundsError(MainException):
     pass
+
+
+class TicketError(MainException):
+    pass
